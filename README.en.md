@@ -2,7 +2,7 @@
 
 > This is a simple application built to demonstrate the use of layers in software architecture
 
-*[English Version](./README.en.md)*
+*[Portuguese Version](./README.md)*
 
 ## Usage
 
