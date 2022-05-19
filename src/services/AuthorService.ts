@@ -22,7 +22,7 @@ export class AuthorService {
     const author = new Author(authorObject)
     const existingAuthor = await this.#authorRepository.findBy('email', author.email)
     if (existingAuthor) throw new Error('Author already exists')
-    return this.#authorRepository.save(author)
+    return this.#authorRepository.save(author) as Promise<Author>
   }
 
   async update (searchId: string, updateValues: Partial<AuthorObject>) {
