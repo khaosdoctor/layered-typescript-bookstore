@@ -1,12 +1,17 @@
 import { NextFunction, Request, Response } from 'express'
 import { AuthorService } from '../../../services'
 import { z, ZodError } from 'zod'
+import { DateTime } from 'luxon'
 
 export const create = (authorService: AuthorService) => async (req: Request, res: Response, next: NextFunction) => {
   const schema = z.object({
     name: z.string(),
     email: z.string().email(),
-    birthday: z.date(),
+    birthday: z.string()
+      .nonempty()
+      .transform((value) => DateTime.fromISO(value))
+      .refine((value) => value.isValid)
+      .transform(value => value.toJSDate()),
     bio: z.string().max(300)
   })
 
