@@ -6,7 +6,6 @@ export const create = (bookService: BookService) => async (req: Request, res: Re
   const schema = z.object({
     title: z.string(),
     authors: z.string().array(),
-    birthday: z.date(),
     description: z.string().max(300),
     pages: z.number(),
     isbn: z.string()
