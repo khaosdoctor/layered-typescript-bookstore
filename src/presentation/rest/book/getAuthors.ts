@@ -6,7 +6,7 @@ export const getAuthors = (bookService: BookService) => async (req: Request, res
     const { id } = req.params
     const book = await bookService.findById(id)
     const authors = await bookService.getAuthors(book)
-    res.json({ ...book.object, authors })
+    res.json(authors)
   } catch (error) {
     next(error)
   }
