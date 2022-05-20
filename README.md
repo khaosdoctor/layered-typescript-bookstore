@@ -12,4 +12,4 @@
 
 O servidor roda por padrão na porta 3000, mas você pode alterar isso exportando uma variável `PORT` ao executar o comando `start`: `PORT=<porta> npm start`.
 
-
+> Você também pode importar a [coleção de requests](./insomnia.json) para o seu [InSomnia](https://insomnia.rest/).
