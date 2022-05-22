@@ -29,9 +29,13 @@ export class BookRepository {
     return this.#DB.deleteBook(id)
   }
 
-  async save (book: Book) {
+  async save (book: Book): Promise<Book> {
     const bookObject = book.object
-    if (await this.findById(book.id)) return this.#DB.updateBook(book.id, book.object)
-    return this.#DB.addBook(bookObject)
+    if (await this.findById(book.id)) {
+      const updatedBook = await this.#DB.updateBook(book.id, book.object)
+      return new Book(updatedBook)
+    }
+    const createdBook = await this.#DB.addBook(bookObject)
+    return new Book(createdBook)
   }
 }

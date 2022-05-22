@@ -45,12 +45,12 @@ export class DB {
   }
 
   async updateBook (bookId: string, updateData: Partial<BookObject>) {
-    const { id, ...currentBook } = await this.#books.get(bookId) || {}
+    const currentBook = await this.#books.get(bookId) || {}
     delete updateData.id
     const newBook = { ...currentBook, ...updateData } as BookObject
     this.#books.set(bookId, newBook)
     await this.save()
-    return this.getBook(bookId)
+    return newBook
   }
 
   async deleteBook (id: string) {
