@@ -29,9 +29,13 @@ export class AuthorRepository {
     return this.#DB.deleteAuthor(id)
   }
 
-  async save (author: Author) {
+  async save (author: Author): Promise<Author> {
     const authorObject = author.object
-    if (await this.findById(author.id)) return this.#DB.updateAuthor(author.id, author.object)
-    return this.#DB.addAuthor(authorObject)
+    if (await this.findById(author.id)) {
+      const updatedAuthor = await this.#DB.updateAuthor(author.id, author.object)
+      return new Author(updatedAuthor)
+    }
+    const createdAuthor = await this.#DB.addAuthor(authorObject)
+    return new Author(createdAuthor)
   }
 }

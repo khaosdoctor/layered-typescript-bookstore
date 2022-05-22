@@ -75,12 +75,12 @@ export class DB {
   }
 
   async updateAuthor (authorId: string, updateData: Partial<AuthorObject>) {
-    const { id, ...currentAuthor } = await this.#authors.get(authorId) || {}
+    const currentAuthor = await this.#authors.get(authorId) || {}
     delete updateData.id
     const newAuthor = { ...currentAuthor, ...updateData } as AuthorObject
     this.#authors.set(authorId, newAuthor)
     await this.save()
-    return this.getAuthor(authorId)
+    return newAuthor
   }
 
   async deleteAuthor (id: string) {
